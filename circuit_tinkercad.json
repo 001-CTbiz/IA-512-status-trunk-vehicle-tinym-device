@@ -1,0 +1,202 @@
+{
+  "version": "1.0.0",
+  "metadata": {
+    "title": "Sistema de Monitoramento do Baú - Lilygo T-PicoC3 + VL53L0X",
+    "description": "Circuito para monitoramento do estado do baú de veículos usando sensor de distância VL53L0X e display LCD integrado",
+    "author": "Sistema TinyML",
+    "created": "2024-09-27",
+    "tags": ["TinyML", "VL53L0X", "Lilygo", "RP2040", "I2C", "Display"]
+  },
+  "components": [
+    {
+      "id": "lilygo_t_picoc3",
+      "type": "microcontroller",
+      "name": "Lilygo T-PicoC3 Pi RP2040 LCD",
+      "position": {"x": 0, "y": 0},
+      "properties": {
+        "voltage": "3.3V",
+        "cpu": "RP2040",
+        "frequency": "133MHz",
+        "flash": "2MB",
+        "ram": "256KB",
+        "display": "TFT 240x135 pixels integrado"
+      },
+      "pins": {
+        "power": {
+          "3.3V": {"x": -50, "y": -30},
+          "GND": {"x": -50, "y": -20}
+        },
+        "gpio": {
+          "GP12": {"x": 50, "y": -10, "function": "I2C_SDA"},
+          "GP13": {"x": 50, "y": 0, "function": "I2C_SCL"}
+        }
+      }
+    },
+    {
+      "id": "vl53l0x_sensor",
+      "type": "sensor",
+      "name": "VL53L0X Time-of-Flight Sensor",
+      "position": {"x": 200, "y": 0},
+      "properties": {
+        "type": "Time-of-Flight (ToF)",
+        "range": "0-2000mm",
+        "accuracy": "±3%",
+        "interface": "I2C",
+        "voltage": "3.3V",
+        "current": "20mA"
+      },
+      "pins": {
+        "VCC": {"x": 150, "y": -30},
+        "GND": {"x": 150, "y": -20},
+        "SDA": {"x": 150, "y": -10},
+        "SCL": {"x": 150, "y": 0}
+      }
+    },
+    {
+      "id": "power_supply",
+      "type": "power",
+      "name": "Fonte de Alimentação 3.3V",
+      "position": {"x": -100, "y": -50},
+      "properties": {
+        "voltage": "3.3V",
+        "current": "500mA",
+        "type": "USB ou Bateria"
+      }
+    }
+  ],
+  "connections": [
+    {
+      "from": {"component": "power_supply", "pin": "3.3V"},
+      "to": {"component": "lilygo_t_picoc3", "pin": "3.3V"},
+      "wire": {"color": "red", "thickness": 2}
+    },
+    {
+      "from": {"component": "power_supply", "pin": "GND"},
+      "to": {"component": "lilygo_t_picoc3", "pin": "GND"},
+      "wire": {"color": "black", "thickness": 2}
+    },
+    {
+      "from": {"component": "lilygo_t_picoc3", "pin": "3.3V"},
+      "to": {"component": "vl53l0x_sensor", "pin": "VCC"},
+      "wire": {"color": "red", "thickness": 1}
+    },
+    {
+      "from": {"component": "lilygo_t_picoc3", "pin": "GND"},
+      "to": {"component": "vl53l0x_sensor", "pin": "GND"},
+      "wire": {"color": "black", "thickness": 1}
+    },
+    {
+      "from": {"component": "lilygo_t_picoc3", "pin": "GP12"},
+      "to": {"component": "vl53l0x_sensor", "pin": "SDA"},
+      "wire": {"color": "blue", "thickness": 1}
+    },
+    {
+      "from": {"component": "lilygo_t_picoc3", "pin": "GP13"},
+      "to": {"component": "vl53l0x_sensor", "pin": "SCL"},
+      "wire": {"color": "green", "thickness": 1}
+    }
+  ],
+  "circuit_diagram": {
+    "layout": "horizontal",
+    "spacing": 100,
+    "background": "white",
+    "grid": true
+  },
+  "pinout_diagram": {
+    "lilygo_t_picoc3": {
+      "title": "Lilygo T-PicoC3 Pi RP2040 LCD Pinout",
+      "pins": [
+        {"name": "VBUS", "position": "top-left", "function": "USB Power"},
+        {"name": "GND", "position": "top-left", "function": "Ground"},
+        {"name": "GP0", "position": "top-left", "function": "GPIO"},
+        {"name": "GP1", "position": "top-left", "function": "GPIO"},
+        {"name": "GP2", "position": "top-left", "function": "GPIO"},
+        {"name": "GP3", "position": "top-left", "function": "GPIO"},
+        {"name": "GP4", "position": "top-left", "function": "GPIO"},
+        {"name": "GP5", "position": "top-left", "function": "GPIO"},
+        {"name": "GP6", "position": "top-left", "function": "GPIO"},
+        {"name": "GP7", "position": "top-left", "function": "GPIO"},
+        {"name": "GP8", "position": "top-left", "function": "GPIO"},
+        {"name": "GP9", "position": "top-left", "function": "GPIO"},
+        {"name": "GP10", "position": "top-left", "function": "GPIO"},
+        {"name": "GP11", "position": "top-left", "function": "GPIO"},
+        {"name": "GP12", "position": "top-left", "function": "I2C_SDA", "highlight": true},
+        {"name": "GP13", "position": "top-left", "function": "I2C_SCL", "highlight": true},
+        {"name": "GP14", "position": "top-left", "function": "GPIO"},
+        {"name": "GP15", "position": "top-left", "function": "GPIO"},
+        {"name": "GP16", "position": "top-left", "function": "GPIO"},
+        {"name": "GP17", "position": "top-left", "function": "GPIO"},
+        {"name": "GP18", "position": "top-left", "function": "GPIO"},
+        {"name": "GP19", "position": "top-left", "function": "GPIO"},
+        {"name": "GP20", "position": "top-left", "function": "GPIO"},
+        {"name": "GP21", "position": "top-left", "function": "GPIO"},
+        {"name": "GP22", "position": "top-left", "function": "GPIO"},
+        {"name": "3.3V", "position": "top-right", "function": "Power", "highlight": true},
+        {"name": "GND", "position": "top-right", "function": "Ground", "highlight": true}
+      ]
+    },
+    "vl53l0x": {
+      "title": "VL53L0X Sensor Pinout",
+      "pins": [
+        {"name": "VCC", "position": "left", "function": "Power 3.3V", "highlight": true},
+        {"name": "GND", "position": "left", "function": "Ground", "highlight": true},
+        {"name": "SDA", "position": "left", "function": "I2C Data", "highlight": true},
+        {"name": "SCL", "position": "left", "function": "I2C Clock", "highlight": true},
+        {"name": "XSHUT", "position": "left", "function": "Shutdown (optional)"},
+        {"name": "GPIO1", "position": "left", "function": "Interrupt (optional)"}
+      ]
+    }
+  },
+  "wiring_instructions": [
+    "1. Conecte VCC do VL53L0X ao pino 3.3V da Lilygo T-PicoC3",
+    "2. Conecte GND do VL53L0X ao pino GND da Lilygo T-PicoC3", 
+    "3. Conecte SDA do VL53L0X ao pino GP12 da Lilygo T-PicoC3",
+    "4. Conecte SCL do VL53L0X ao pino GP13 da Lilygo T-PicoC3",
+    "5. Alimente o sistema via USB ou fonte externa 3.3V"
+  ],
+  "technical_specifications": {
+    "power": {
+      "voltage": "3.3V",
+      "current": "~100mA total",
+      "sensor_current": "20mA"
+    },
+    "communication": {
+      "protocol": "I2C",
+      "speed": "100kHz (padrão)",
+      "address": "0x29 (VL53L0X)"
+    },
+    "sensor": {
+      "range": "0-2000mm",
+      "accuracy": "±3%",
+      "resolution": "1mm",
+      "update_rate": "10Hz"
+    },
+    "display": {
+      "type": "TFT LCD integrado",
+      "resolution": "240x135 pixels",
+      "colors": "RGB565",
+      "backlight": "LED integrado"
+    }
+  },
+  "troubleshooting": [
+    "Se o sensor não for detectado, verifique as conexões I2C",
+    "Se o display não funcionar, verifique a alimentação 3.3V",
+    "Para distâncias incorretas, calibre o sensor",
+    "Se houver interferência, use cabos mais curtos (<20cm)"
+  ],
+  "code_reference": {
+    "i2c_pins": {
+      "sda": "GP12",
+      "scl": "GP13"
+    },
+    "sensor_address": "0x29",
+    "display_pins": {
+      "bl": "GP4",
+      "rst": "GP0", 
+      "cs": "GP5",
+      "dc": "GP1",
+      "mosi": "GP3",
+      "sclk": "GP2"
+    }
+  }
+}
